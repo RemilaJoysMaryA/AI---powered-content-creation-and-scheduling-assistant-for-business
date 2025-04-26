@@ -1,0 +1,64 @@
+.outer{
+    border: 0px solid black;
+    height: 532px;
+    border-radius: 20px;
+  }
+  .credentials{
+    display: inline-block;
+    width: 50%;
+    margin:0;
+    float:left;
+    height: 592px;
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: white;
+  }
+
+
+  .fields{
+    padding-left: 20%;
+    padding-top: 20px;
+  }
+  .inputfields{
+    width:10cm;
+    padding: 2px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    margin-top: 2px;box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+    border: none;
+    height: 20px;
+  }
+
+  
+  .SignUpButton{
+    width: 4.5cm;
+    background-color: black;
+    height: 30px;
+    color: white;
+    padding-bottom: 2px;
+    padding-top: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  .SignUpButton:hover{
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+    color: black;
+    background-color: white;
+  }
+  .h2{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    padding-top: 45px;
+  }
+  
+
+  body{
+    
+    background-image:url("https://cdn.pixabay.com/photo/2015/07/28/22/01/office-865091_1280.jpg") ;
+    background-color: black;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: relative;
+    
+  }

@@ -1,0 +1,121 @@
+/* profile.css */
+
+/* General body styling */
+body {
+    height: 900px;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image:url("https://img.freepik.com/free-vector/abstract-blue-background-technology-web-network_43623-1106.jpg") ;
+   
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: relative;
+}
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+nav {
+    margin-left: 20px;
+}
+
+nav a {
+    color: #e0e0e0;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+/* Container styling */
+.profile-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    color: #e0e0e0;
+}
+
+/* Heading styling */
+.profile-container h1 {
+    font-size: 2.4em;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff;
+    border-bottom: 2px solid wheat;
+    padding-bottom: 10px;
+}
+
+/* Profile details styling */
+#profile-details {
+    margin-bottom: 20px;
+}
+
+/* Styling individual profile detail lines */
+#profile-details p {
+    font-size: 1.1em;
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+/* Styling strong elements for labels */
+#profile-details strong {
+    color: white;
+}
+
+/* Styling span elements for profile data */
+#profile-details span {
+    color: #ffffff;
+}
+
+/* Logout button styling */
+button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: wheat;
+    border: none;
+    border-radius: 8px;
+    color: black;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Change button color and scale on hover */
+button:hover {
+    background-color: black;
+    transform: scale(1.05);
+    color: wheat;
+    font-weight: bold;
+}
+
+/* Add responsive design */
+@media (max-width: 600px) {
+    .profile-container {
+        padding: 20px;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 12px;
+    }
+}

@@ -1,0 +1,450 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and text color */
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #ffffff; /* Default white background for light mode */
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for container */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, background-color 0.3s; /* Smooth transition for input */
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #007bff; /* Bootstrap primary color */
+            outline: none; /* Remove outline */
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: darkcyan; /* Bootstrap primary color */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: darkcyan; /* Darker shade on hover */
+        }
+
+        .output-section {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition for output */
+        }
+
+        .output-section h3 {
+            margin-top: 0;
+        }
+
+        .content-section {
+            background-color: #f9f9f9; /* Light grey for content section */
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        pre {
+            background-color: #f0f0f0; /* Light grey for code blocks */
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #333;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #181818; /* Dark background */
+            color: #f4f4f4; /* Light text */
+        }
+
+        .container.dark-mode {
+            background: #242424; /* Darker background for container */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Darker shadow */
+        }
+
+        input[type="text"].dark-mode,
+        textarea.dark-mode {
+            background-color: #303030; /* Dark input background */
+            border-color: #444; /* Dark border */
+            color: #f4f4f4; /* Light text */
+        }
+
+        .output-section.dark-mode {
+            background-color: #303030; /* Dark grey for output section */
+            color: #f4f4f4; /* Light text */
+        }
+
+        .content-section.dark-mode {
+            background-color: #383838; /* Darker grey for content section */
+            border-color: #444; /* Dark border */
+        }
+
+        /* Toggle Button Styles */
+        #themeToggle {
+            position: fixed; /* Fixed position */
+            top: 0; /* Distance from the top */
+            margin-left: 45%;/* Distance from the right */
+            background: none;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            font-size: 24px; /* Size of the icon */
+            color: #007bff; /* Color for light mode */
+            transition: color 0.3s ease; /* Smooth transition for color */
+            z-index: 1000; /* Ensure it's on top */
+        }
+
+        /* Change toggle button color in dark mode */
+        body.dark-mode #themeToggle {
+            color: #f4f4f4; /* Light color for dark mode */
+        }
+    </style>
+</head>
+<body>
+    <button id="themeToggle">🌙</button> Toggle button for dark/light mode 
+    <div class="container">
+        <h1>Generate AI Content</h1>
+        <form id="contentForm">
+            <label for="domain">Domain:</label>
+            <input type="text" id="domain" name="domain" placeholder="Enter your domain" required>
+
+            <label for="prompt">Prompt:</label>
+            <textarea id="prompt" name="prompt" rows="4" placeholder="Enter your prompt" required></textarea>
+
+            <button type="submit">Generate Content</button>
+        </form>
+
+        <div class="output-section" id="outputSection" style="display:none;">
+            <h3>Generated Blog Content:</h3>
+            <div id="blogContent" class="content-section"></div>
+            <h3>SEO Tips:</h3>
+            <div id="seoTips" class="content-section"></div>
+            <h3>Social Media Post:</h3>
+            <div id="socialMediaContent" class="content-section"></div>
+            <h3>Email Campaign Content:</h3>
+            <div id="emailCampaignContent" class="content-section"></div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between dark and light mode
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.container').classList.toggle('dark-mode');
+            document.querySelectorAll('input[type="text"], textarea').forEach(element => {
+                element.classList.toggle('dark-mode');
+            });
+            document.querySelectorAll('.output-section').forEach(element => {
+                element.classList.toggle('dark-mode');
+            });
+            document.querySelectorAll('.content-section').forEach(element => {
+                element.classList.toggle('dark-mode');
+            });
+            // Change the toggle button icon
+            themeToggle.textContent = document.body.classList.contains('dark-mode') ? '🌞' : '🌙';
+        });
+
+        document.getElementById('contentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const domain = document.getElementById('domain').value;
+            const prompt = document.getElementById('prompt').value;
+
+            try {
+                const response = await fetch('/generate-content', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ domain, prompt })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    document.getElementById('outputSection').style.display = 'block';
+                    document.getElementById('blogContent').innerText = data.blog_content;
+                    document.getElementById('seoTips').innerText = data.seo_tips;
+                    document.getElementById('socialMediaContent').innerText = data.social_media_post;
+                    document.getElementById('emailCampaignContent').innerText = data.email_campaign_content;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while generating content.');
+            }
+        });
+    </script>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF- 8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f7fa;
+        margin: 0;
+        padding: 20px;
+    }
+    header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 10px;
+    background-color: darkcyan;
+    margin-bottom: 20px;;
+}
+
+nav {
+    margin-left: 20px;
+}
+
+nav a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+    h1 {
+        text-align: center;
+        color: black;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: black;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea {
+        resize: vertical;
+        font-family: Arial, sans-serif;
+    }
+
+    button {
+        width: 60%;
+        padding: 10px;
+        background-color: darkcyan;
+        margin-left:120px;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+        background-color: darkcyan;
+        transform: scale(1.05);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #generated-content {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e9ecef;
+        border-radius: 4px;
+
+    }
+
+    .content-section {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        overflow-wrap: break-word; /* Ensures long words break and don't overflow */
+        word-wrap: break-word; /* Fallback for older browsers */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .content-section h3 {
+        margin-top: 0;
+    }
+
+    pre {
+        background-color: #f8f9fa;
+        border: none; /* Remove border from <pre> tag */
+        overflow-x: auto; /* Add horizontal scroll if needed */
+        white-space: pre-wrap; /* Wrap long lines */
+        word-wrap: break-word; /* Break long words */
+        margin: 0; /* Remove default margins */
+        padding: 5px; /* Add padding for better appearance */
+        max-height: 200px; /* Set a max height for better control */
+        overflow-y: auto; /* Allow vertical scroll if content exceeds max height */
+    }
+</style>
+
+</head>
+<body>
+    <header>
+        <nav><a href = "home.html">Home</a></nav>
+        <nav><a href = "">Collateral Creation Wizard</a></nav>
+        <nav><a href = "login.html">Login</a></nav>
+        <nav><a href = "signup.html">Signup</a></nav>
+        <nav><a href = "profile.html">Profile</a></nav>
+        <nav><a href = "">Dashboard</a></nav>
+        <nav><a href = "scheduling.html">Scheduling</a></nav>
+    </header>
+    <div class="container">
+        <h1>Content Generator</h1>
+        
+        <div>
+            <label for="domain">Domain:</label>
+            <input type="text" id="domain" placeholder="Enter domain">
+        </div>
+        
+        <div>
+            <label for="prompt">Prompt:</label>
+            <textarea id="prompt" rows="5" placeholder="Enter your prompt"></textarea>
+        </div>
+        
+        <button id="generate-button">Generate Content</button>
+
+        <div id="generated-content">
+            <h2>Generated Content</h2>
+            <div class="content-section" id="blog-content">
+                <h3>Blog Content</h3>
+                <pre id="blog-output"></pre>
+            </div>
+            <div class="content-section" id="seo-content">
+                <h3>SEO Tips</h3>
+                <pre id="seo-output"></pre>
+            </div>
+            <div class="content-section" id="social-media-content">
+                <h3>Social Media Post</h3>
+                <pre id="social-media-output"></pre>
+            </div>
+            <div class="content-section" id="email-content">
+                <h3>Email Campaign</h3>
+                <pre id="email-output"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function generateContent(domain, prompt) {
+            const response = await fetch('/generate-content', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ domain, prompt }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error:', errorData);
+                return;
+            }
+
+            const data = await response.json();
+            displayGeneratedContent(data);
+        }
+
+        function displayGeneratedContent(data) {
+            // Display the generated content in the chat interface
+            document.getElementById('blog-output').innerText = data.blog_content || "No content generated.";
+            document.getElementById('seo-output').innerText = data.seo_tips || "No SEO tips generated.";
+            document.getElementById('social-media-output').innerText = data.social_media_post || "No social media post generated.";
+            document.getElementById('email-output').innerText = data.email_campaign || "No email campaign content generated.";
+        }
+
+        document.getElementById('generate-button').addEventListener('click', () => {
+            const domain = document.getElementById('domain').value;
+            const prompt = document.getElementById('prompt').value;
+            generateContent(domain, prompt);
+        });
+    </script>
+</body>
+</html>

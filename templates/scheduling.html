@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftGen</title>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.css' rel='stylesheet' />
+    <style>
+        /* Your existing CSS styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://cdn.pixabay.com/photo/2015/07/28/22/01/office-865091_1280.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: black;
+        }
+        .calendar-container {
+            width: 60%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #calendar {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .fc-toolbar-title {
+            color: #333;
+            font-weight: bold;
+        }
+        .fc-button-primary {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            font-weight: bold;
+        }
+        .fc-button-primary:hover {
+            background-color: #000000;
+        }
+        .fc-daygrid-day-number {
+            color: #333;
+        }
+        header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        nav {
+            margin-left: 20px;
+        }
+        nav a {
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            padding: 8px 12px;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .schedulebutton {
+        width: 200px;
+        padding: 10px;
+        background-color: darkcyan;
+        margin-left:650px;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .schedulebutton:hover {
+        background-color: darkcyan;
+        transform: scale(1.05);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .schedulea{text-decoration: none;
+    color: white;}
+    </style>
+</head>
+<body>
+    <header>
+        <nav><a href="home.html">Home</a></nav>
+        <nav><a href="templates/chat.html">Chat</a></nav>
+        <nav><a href="#">Collateral Creation Wizard</a></nav>
+        <nav><a href="login.html">Login</a></nav>
+        <nav><a href="signup.html">Signup</a></nav>
+        <nav><a href="profile.html">Profile</a></nav>
+        <nav><a href="#">Dashboard</a></nav>
+    </header>
+    <div class="calendar-container">
+        <h1>Scheduling Calendar</h1>
+        <div id="calendar"></div>
+    </div>
+    <button class = "schedulebutton"><a href="sch.html" class="schedulea">Schedule Your Post</a></button>
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: [] // Start with no events
+            });
+
+            // Fetch public holidays for India using Calendarific API
+            fetch('https://calendarific.com/api/v2/holidays?api_key=AjITREl6CDSCJkkN6KD6UxcWJkYfqhlk&country=IN&year=2024')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Map API response to calendar events
+                    const holidayEvents = data.response.holidays.map(holiday => ({
+                        title: holiday.name,
+                        start: holiday.date.iso,
+                        allDay: true // Ensure the event is all-day
+                    }));
+
+                    // Add the holiday events to the calendar
+                    holidayEvents.forEach(event => calendar.addEvent(event));
+
+                    calendar.render(); // Render the calendar after adding events
+                })
+                .catch(error => {
+                    console.error('Error fetching public holidays:', error);
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signUp.css">
+    <title>CraftGen</title>
+</head>
+<body>
+    <div class="main">
+        <div class="SignUpPage" style="height: 900px;">
+            <div class="outer">
+                <div class="credentials" style="margin: 100px;">
+                    <h2 class="h2">Welcome to CraftGen! Empower Your Business...</h2>
+                    <div class="fields">
+                        <label>Business Name</label><br>
+                        <input type="text" class="inputfields" id="businessName" placeholder="Enter your business name"><br><br>
+                        <label>Name</label><br>
+                        <input type="text" class="inputfields" id="name" placeholder="Enter your name"><br><br>
+                        <label>Domain</label><br>
+                        <input type="text" class="inputfields" id="domain" placeholder="Enter your business domain"><br><br>
+                        <label>Email</label><br>
+                        <input type="email" class="inputfields" id="email" placeholder="Enter your Email"><br><br>
+                        <label>Password</label><br>
+                        <input type="password" class="inputfields" id="password" placeholder="Enter your password"><br><br>
+                        <label>Confirm Password</label><br>
+                        <input type="password" class="inputfields" id="confirmPassword" placeholder="Confirm your password"><br><br>
+                        <a href="login.html">
+                            <button style="margin-right: 1cm;" class="SignUpButton">Login</button>
+                        </a>
+                        <button class="SignUpButton" onclick="signUp()">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function signUp() {
+            const businessName = document.getElementById('businessName').value;
+            const name = document.getElementById('name').value;
+            const domain = document.getElementById('domain').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ businessName, name, domain, email, password }),
+                });
+
+                const data = await response.json();
+                alert(data.message);
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

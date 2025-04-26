@@ -1,0 +1,144 @@
+body {
+    background-image: url('https://static.vecteezy.com/system/resources/previews/005/454/936/non_2x/black-abstract-business-background-design-free-vector.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: 'Averia Gruesa Libre', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+nav {
+    margin-left: 20px;
+}
+
+nav a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+main {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.appname h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    color: wheat;
+}
+
+.appname h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 30px;
+}
+
+.intro h2, .getstarted h2, .features h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: wheat;
+}
+
+.intro p {
+    font-size: 18px;
+    margin: 0 auto 30px;
+    max-width: 800px;
+    text-align:justify;
+}
+
+.intro {
+    background-color: #ffffff81;
+    color: white;
+    padding:20px;
+}
+
+.getstarted {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 10px;
+}
+
+.getstarted button {
+    background-color: wheat;
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.getstarted button:hover {
+    background-color: wheat;
+}
+
+.getstarted button a {
+    color: #000;
+    text-decoration: none;
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.features .content, .features .collateral {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.features h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: wheat;
+}
+
+.features p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.features button {
+    background-color: wheat;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.features button:hover {
+    background-color: wheat;
+}
+
+.features button a {
+    color: #000;
+    text-decoration: none;
+}

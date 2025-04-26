@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="profile.css">
+    <title>CraftGen - Profile</title>
+</head>
+<body>
+    <header>
+        <nav><a href = "home.html">Home</a></nav>
+        <nav><a href = "templates/chat.html">Chat</a></nav>
+        <nav><a href = "">Collateral Creation Wizard</a></nav>
+        <nav><a href = "login.html">Login</a></nav>
+        <nav><a href = "signup.html">Signup</a></nav>
+        <nav><a href = "">Dashboard</a></nav>
+        <nav><a href = "scheduling.html">Scheduling</a></nav>
+    </header>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div id="profile-details">
+            <p><strong>Business Name:</strong> <span id="profile-businessName"></span></p>
+            <p><strong>Name:</strong> <span id="profile-name"></span></p>
+            <p><strong>Domain:</strong> <span id="profile-domain"></span></p>
+            <p><strong>Email:</strong> <span id="profile-email"></span></p>
+        </div>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/profile', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}` // Assuming token is stored in localStorage
+                    }
+                });
+
+
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('profile-businessName').textContent = data.businessName;
+                    document.getElementById('profile-name').textContent = data.name;
+                    document.getElementById('profile-domain').textContent = data.domain;
+                    document.getElementById('profile-email').textContent = data.email;
+                } else {
+                    alert('Failed to fetch profile details');
+                }
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                alert('An error occurred while fetching profile details');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('token'); // Clear the token
+            window.location.href = 'login.html'; // Redirect to login
+        }
+    </script>
+</body>
+</html>

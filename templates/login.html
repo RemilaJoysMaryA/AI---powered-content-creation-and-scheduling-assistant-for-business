@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>CraftGen - Login</title>
+</head>
+<body>
+    <div class="outerLogin">
+        <div class="credentialsLogin">
+            <h1 class="Welcome">Welcome Back</h1>
+            <div class="fieldsLogin">
+                <label>Email</label><br />
+                <input type="email" id="email" class="inputfieldsLogin" placeholder="Enter your Email"/><br /><br />
+                <label>Password</label><br />
+                <input type="password" id="password" class="inputfieldsLogin" placeholder="Enter your password"/><br /><br />
+                <button class="LoginButton" onclick="login()">Login</button>
+                <a href="signup.html"><button class="LoginButton">Sign Up</button></a>
+            </div>
+        </div>
+        <div class="imageLogin">
+            <img 
+                src="https://img.freepik.com/premium-photo/tree-middle-with-gradient-background_811396-40035.jpg?size=626&ext=jpg&ga=GA1.1.2116175301.1718236800&semt=ais_user" 
+                class="img" 
+                alt="Background"
+            />
+        </div>
+    </div>
+
+    <script>
+        async function login() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+        
+        if (response.ok) {
+            localStorage.setItem('token', data.token); // Store the token in localStorage
+            alert("Login successful!");
+            window.location.href = 'profile.html'; // Redirect to profile page
+        } else {
+            alert(data.error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred');
+    }
+}
+
+        
+    </script>
+</body>
+</html>
